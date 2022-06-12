@@ -1,0 +1,22 @@
+.input {
+    display: block;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+.form {
+    border: solid 1px black;
+    padding: 10px;
+}
+
+.button {
+    background-color: white;
+    border: solid 1px gray;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: blue;
+    color: white;
+}

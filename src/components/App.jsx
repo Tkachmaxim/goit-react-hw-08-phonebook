@@ -17,9 +17,14 @@ export class App extends Component {
 
   onSubmitForm = ({ name, number }) => {
     if (!this.isPresent(name)) {
-      this.setState(({ contacts }) => ({
-        contacts: [{ name, number, id: nanoid() }, ...contacts],
-      }));
+      this.setState(
+        ({ contacts }) => ({
+          contacts: [{ name, number, id: nanoid() }, ...contacts],
+        }),
+        () => {
+          localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+        }
+      );
     } else {
       alert(`${name} is present in contacts`);
     }
@@ -50,6 +55,21 @@ export class App extends Component {
     );
     return filteredContacts;
   };
+
+  componentDidMount() {
+    const contactsLocalStorage = localStorage.getItem('contacts');
+    if (contactsLocalStorage) {
+      const jsonContacts = JSON.parse(contactsLocalStorage);
+      console.log(jsonContacts);
+      this.setState(() => ({
+        contacts: [...jsonContacts],
+      }));
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  }
 
   onClicktDeleteButton = id => {
     const { contacts } = this.state;

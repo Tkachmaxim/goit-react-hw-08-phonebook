@@ -1,10 +1,69 @@
-import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import InputForm from './InputForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
+import useLocalStorage from 'hooks/useLocalStorage';
+import { useState } from 'react';
 
-export class App extends Component {
+const App = () => {
+  const [contacts, setContacts] = useLocalStorage('contact', []);
+  const [search, setSearch] = useState('');
+
+  const onSubmitForm = (name, number) => {
+    if (!isPresent(name)) {
+      setContacts(contacts => [{ name, number, id: nanoid() }, ...contacts]);
+    } else {
+      alert(`${name} is present in contacts`);
+    }
+  };
+
+  const onChange = e => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+  const getFilteredContacts = () => {
+    const normilizedSearch = search.toLowerCase();
+    const filtered = contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(normilizedSearch);
+    });
+
+    return filtered;
+  };
+
+  const isPresent = chekingName => {
+    return contacts.find(
+      element =>
+        element.name.toLocaleLowerCase() === chekingName.toLocaleLowerCase()
+    );
+  };
+
+  const onClicktDeleteButton = id => {
+    const notDeletingContacts = contacts.filter(contact => contact.id !== id);
+    setContacts([...notDeletingContacts]);
+  };
+
+  return (
+    <div>
+      <h1>Phonebook</h1>
+      <InputForm onSubmitForm={onSubmitForm} />
+      <h1>Contacts</h1>
+      <Filter
+        title="Find contacts by name"
+        value={search}
+        onChange={onChange}
+      />
+      <ContactList
+        contacts={getFilteredContacts()}
+        onClicktDeleteButton={onClicktDeleteButton}
+      />
+    </div>
+  );
+};
+
+export { App };
+
+/* export class App extends Component {
   state = {
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -14,6 +73,7 @@ export class App extends Component {
     ],
     search: '',
   };
+
 
   onSubmitForm = ({ name, number }) => {
     if (!this.isPresent(name)) {
@@ -101,4 +161,4 @@ export class App extends Component {
       </div>
     );
   }
-}
+} */

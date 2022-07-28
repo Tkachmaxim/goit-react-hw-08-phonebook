@@ -1,11 +1,15 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { addContact } from 'redux/phonebook/phonebook-actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 import s from './InputForm.module.css';
 
-const InputForm = ({ onSubmitForm }) => {
-  const [name, setName] = useState('');
+const InputForm = () => {
+  const [nameForm, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(state => state.phonebook.items);
+  const dispatch = useDispatch();
 
   const onChangeForm = e => {
     const { name, value } = e.target;
@@ -26,7 +30,13 @@ const InputForm = ({ onSubmitForm }) => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    onSubmitForm(name, number);
+    console.log(contacts);
+
+    if (contacts.find(({ name }) => name === nameForm)) {
+      return alert('This name is present');
+    }
+
+    dispatch(addContact(nameForm, number));
     setName('');
     setNumber('');
   };
@@ -40,7 +50,7 @@ const InputForm = ({ onSubmitForm }) => {
           onChange={onChangeForm}
           type="text"
           name="name"
-          value={name}
+          value={nameForm}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
@@ -69,7 +79,3 @@ const InputForm = ({ onSubmitForm }) => {
 };
 
 export default InputForm;
-
-InputForm.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
-};

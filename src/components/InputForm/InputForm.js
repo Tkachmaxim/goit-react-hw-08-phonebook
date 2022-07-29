@@ -30,9 +30,12 @@ const InputForm = () => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    console.log(contacts);
 
-    if (contacts.find(({ name }) => name === nameForm)) {
+    if (
+      contacts.find(
+        ({ name }) => name.toLowerCase() === nameForm.toLocaleLowerCase()
+      )
+    ) {
       return alert('This name is present');
     }
 

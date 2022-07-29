@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { addContact } from 'redux/phonebook/phonebook-actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { addContacts } from 'redux/phonebook/phonebookOperations';
 
 import s from './InputForm.module.css';
 
@@ -38,8 +38,8 @@ const InputForm = () => {
     ) {
       return alert('This name is present');
     }
-
-    dispatch(addContact(nameForm, number));
+    const newContact = { name: nameForm, phone: number };
+    dispatch(addContacts(newContact));
     setName('');
     setNumber('');
   };

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import authOperations from 'redux/auth/auth-operations';
 
 const styles = {

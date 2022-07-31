@@ -38,7 +38,7 @@ const InputForm = () => {
     ) {
       return alert('This name is present');
     }
-    const newContact = { name: nameForm, phone: number };
+    const newContact = { name: nameForm, number: number };
     dispatch(addContacts(newContact));
     setName('');
     setNumber('');

@@ -29,9 +29,9 @@ const ContactList = () => {
         <h1>Loading...</h1>
       ) : (
         <ul className={s.contactList}>
-          {contacts.map(({ name, phone, id }) => (
+          {contacts.map(({ name, number, id }) => (
             <li key={id} className={s.contact}>
-              {name} : {phone}
+              {name} : {number}
               <button
                 className={s.button}
                 id={id}

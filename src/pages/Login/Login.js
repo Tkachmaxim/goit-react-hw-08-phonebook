@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import authOperations from 'redux/auth/auth-operations';
 
 const styles = {
@@ -34,8 +35,6 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(authOperations.login({ email, password }));
-    setEmail('');
-    setPassword('');
   };
 
   return (

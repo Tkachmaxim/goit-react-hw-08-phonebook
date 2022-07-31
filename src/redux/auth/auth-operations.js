@@ -18,20 +18,25 @@ const register = createAsyncThunk('auth/register', async credentials => {
     token.set(data.token);
     return data;
   } catch (err) {
-    console.log(err);
+    alert(err.response.data.message);
   }
 });
 
-const login = createAsyncThunk('auth/login  ', async credentials => {
-  try {
-    const { data } = await axios.post('/users/login', credentials);
-    token.set(data.token);
+const login = createAsyncThunk(
+  'auth/login  ',
+  async (credentials, thunkAPI) => {
+    try {
+      const { data } = await axios.post('/users/login', credentials);
+      token.set(data.token);
+      console.log(data);
 
-    return data;
-  } catch (err) {
-    console.log(err);
+      return data;
+    } catch (err) {
+      alert('Not correct name or password');
+      console.log(err);
+    }
   }
-});
+);
 
 const logOut = createAsyncThunk('auth/logout  ', async () => {
   try {

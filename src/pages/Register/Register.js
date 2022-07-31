@@ -38,10 +38,6 @@ const Register = () => {
   const handleSubmit = e => {
     e.preventDefault();
     distpatch(authOperations.register({ name, email, password }));
-
-    setName('');
-    setEmail('');
-    setPassword('');
   };
 
   return (

@@ -6,6 +6,7 @@ import { AppBar } from './components/AppBar/AppBar';
 import { Login } from 'pages/Login/Login';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { PrivateRoute } from './components/PrivateRoutes';
 import { PublicRoutes } from './components/PublicRoutes';
 import authOperations from 'redux/auth/auth-operations';
@@ -44,7 +45,7 @@ const App = () => {
             </PrivateRoute>
           }
         />
-        <Route path="*" element={<></>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

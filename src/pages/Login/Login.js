@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import authOperations from 'redux/auth/auth-operations';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   form: {
@@ -38,8 +40,6 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Login Page</h1>
-
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="on">
         <label style={styles.label}>
           Email
@@ -63,6 +63,7 @@ const Login = () => {
 
         <button type="submit">Sign In</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

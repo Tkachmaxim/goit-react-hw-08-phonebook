@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import authOperations from 'redux/auth/auth-operations';
+import { ToastContainer } from 'react-toastify';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -72,6 +73,7 @@ const Register = () => {
 
         <button type="submit">Register</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
